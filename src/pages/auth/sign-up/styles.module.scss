@@ -1,0 +1,27 @@
+.form {
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 20vh auto;
+  border: 1px solid white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.button {
+  margin: 40px auto;
+  width: 80%;
+}
+
+.field {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.link {
+  display: flex;
+  justify-content: center;
+}

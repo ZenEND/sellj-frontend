@@ -1,0 +1,28 @@
+.content{
+}
+
+.image {
+  object-fit: contain;
+  width: 100%;
+  height: 160px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+}
+
+.save {
+  width: 100%;
+}
+
+.col {
+  padding: 20px;
+}
+
+.price {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
