@@ -4,12 +4,19 @@ import {Button} from "antd";
 import {Link} from "react-router-dom";
 import {TextField} from "../../../components/fields/formik/text-field";
 import styles from './styles.module.scss'
+import * as yup from "yup";
 interface SignUpValues {
     email: string
 }
 const initialValues: SignUpValues = {
     email: ''
 }
+
+const validationSchema = yup.object({
+    email: yup.string().required(),
+    password: yup.string().required(),
+    repeatPassword: yup.string().oneOf([yup.ref('password')], 'Your passwords do not match.')
+})
 
 const FieldComponent = ({name = '', label = '', className = styles.field}) => {
     return (
@@ -26,7 +33,7 @@ export const SignUpPage = () => {
 
     return (
         <div>
-            <FormWrapper initialValues={initialValues} onSubmit={onSubmit} className={styles.form}>
+            <FormWrapper initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} className={styles.form}>
                 <FieldComponent name={'email'} label={'Email'}/>
                 <FieldComponent name={'password'} label={'Password'} />
                 <FieldComponent name={'repeatPassword'} label={'Repeat password'} />
