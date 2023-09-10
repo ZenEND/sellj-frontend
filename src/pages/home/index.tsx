@@ -30,7 +30,6 @@ export const HomePage = () => {
                 {goods.map(item => (
                     <Col lg={6} md={12} xs={24} key={item.id} className={styles.col}>
                         <CardUI title={item.title} className={styles.card} actions={[<Button className={styles.save} onClick={() => handleAddToCart(item)}>Add to cart {item.price}$</Button>]}>
-                            <img src={item.image} alt={'error'} className={styles.image}/>
                             <div className={styles.description}>{item.description}</div>
                         </CardUI>
                     </Col>
