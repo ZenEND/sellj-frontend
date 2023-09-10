@@ -5,11 +5,16 @@ import {Button} from "antd";
 import styles from './styles.module.scss'
 import {Link} from "react-router-dom";
 import * as yup from 'yup'
+import {useDispatch} from "react-redux";
+import {userActions} from "../../../store/user";
+import {TypedDispatch} from "../../../types/typed-dispatch.ts";
 interface SignInValues {
     email: string
+    password: string
 }
 const initialValues: SignInValues = {
-    email: ''
+    email: '',
+    password: ''
 }
 
 const validationSchema = yup.object({
@@ -26,10 +31,11 @@ const FieldComponent = ({name = '', label = '', className = styles.field}) => {
   )
 }
 export const SignInPage = () => {
+    const dispatch = useDispatch<TypedDispatch>()
 
     const onSubmit = useCallback((values: SignInValues) => {
-        console.log(values)
-    }, [])
+        dispatch(userActions.signInAction(values))
+    }, [dispatch])
 
     return (
         <div>

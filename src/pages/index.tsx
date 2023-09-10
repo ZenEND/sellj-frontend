@@ -3,9 +3,11 @@ import {HomePage} from "./home";
 import {CartPage} from "./cart";
 import {DefaultLayout} from "../components/layouts/default-layout";
 import {AuthPages} from "./auth";
+import {useGlobalHook} from "../hooks/use-global-hook.ts";
 
 
 export const Pages = () => {
+    useGlobalHook()
     return (
         <DefaultLayout>
                 <Routes>
