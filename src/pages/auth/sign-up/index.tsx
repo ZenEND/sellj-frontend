@@ -1,15 +1,22 @@
 import {useCallback} from "react";
 import {FormWrapper} from "../../../components/fields/formik/form-wrapper";
 import {Button} from "antd";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {TextField} from "../../../components/fields/formik/text-field";
 import styles from './styles.module.scss'
 import * as yup from "yup";
+import {useDispatch} from "react-redux";
+import {TypedDispatch} from "../../../types/typed-dispatch.ts";
+import {userActions} from "../../../store/user";
 interface SignUpValues {
     email: string
+    password: string
+    repeatPassword: string
 }
 const initialValues: SignUpValues = {
-    email: ''
+    email: '',
+    password: '',
+    repeatPassword: ''
 }
 
 const validationSchema = yup.object({
@@ -27,9 +34,13 @@ const FieldComponent = ({name = '', label = '', className = styles.field}) => {
     )
 }
 export const SignUpPage = () => {
-    const onSubmit = useCallback((values: SignUpValues) => {
-        console.log(values)
-    }, [])
+    const dispatch = useDispatch<TypedDispatch>()
+    const navigate = useNavigate()
+
+    const onSubmit = useCallback(async (values: SignUpValues) => {
+        await dispatch(userActions.signUp(values))
+        navigate('/auth/sign-in')
+    }, [dispatch, navigate])
 
     return (
         <div>

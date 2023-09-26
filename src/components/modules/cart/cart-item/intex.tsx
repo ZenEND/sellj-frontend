@@ -1,6 +1,6 @@
 import {CardUI} from "../../../ui/card";
 import styles from './styles.module.scss'
-import {Button, Rate} from "antd";
+import {Button} from "antd";
 import {cartActions, CartInterface} from "../../../../store/cart";
 import {useCallback} from "react";
 import {useDispatch} from "react-redux";
@@ -11,7 +11,7 @@ interface CartItem extends CartInterface {
 }
 export const CartItem = (item: CartItem) => {
     const dispatch = useDispatch<TypedDispatch>()
-    const { image, title, rating, description, count } = item
+    const { image, title, description, count } = item
 
     const onAdd = useCallback(() => {
         dispatch(cartActions.addToCart(item))
@@ -23,10 +23,9 @@ export const CartItem = (item: CartItem) => {
     return (
         <CardUI title={title} className={styles.card}>
             <div className={styles.body}>
-                <img src={image} alt={'error'} className={styles.image}/>
+                {image && <img src={image} alt={'error'} className={styles.image}/>}
                 <div className={styles.content}>
                     <div className={styles.description}>
-                        <div><Rate defaultValue={rating.rate}/> ({rating.count})</div>
                         <div>{description}</div>
                     </div>
                     <div className={styles.actions}>

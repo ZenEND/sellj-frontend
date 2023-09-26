@@ -7,7 +7,8 @@ export interface User {
     email: string
 }
 
-const signInAction = createAsyncThunk('user/sign-in', authApi.singIn)
+const signIn = createAsyncThunk('user/sign-in', authApi.signIn)
+const signUp = createAsyncThunk('user/sign-in', authApi.signUp)
 const getMe = createAsyncThunk('user/me', usersApi.getMe)
 
 const user = createSlice({
@@ -16,7 +17,7 @@ const user = createSlice({
     reducers: {},
     extraReducers: builder => {
         builder
-            .addCase(signInAction.fulfilled, (_s, a) => {
+            .addCase(signIn.fulfilled, (_s, a) => {
                 localStorage.setItem('token', a.payload.data)
                 return a.payload.data
             })
@@ -27,7 +28,8 @@ const user = createSlice({
 })
 
 export const userActions = {
-    signInAction,
+    signIn,
+    signUp,
     getMe
 }
 

@@ -3,7 +3,7 @@ import {TextField} from "../../../components/fields/formik/text-field";
 import {useCallback} from "react";
 import {Button} from "antd";
 import styles from './styles.module.scss'
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import * as yup from 'yup'
 import {useDispatch} from "react-redux";
 import {userActions} from "../../../store/user";
@@ -32,10 +32,12 @@ const FieldComponent = ({name = '', label = '', className = styles.field}) => {
 }
 export const SignInPage = () => {
     const dispatch = useDispatch<TypedDispatch>()
+    const navigate = useNavigate()
 
-    const onSubmit = useCallback((values: SignInValues) => {
-        dispatch(userActions.signInAction(values))
-    }, [dispatch])
+    const onSubmit = useCallback(async (values: SignInValues) => {
+        await dispatch(userActions.signIn(values))
+        navigate('/')
+    }, [dispatch, navigate])
 
     return (
         <div>

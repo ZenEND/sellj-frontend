@@ -21,7 +21,6 @@ const goods = createSlice({
     reducers: {},
     extraReducers: builder => {
         builder.addCase(getGoods.fulfilled, (_s, { payload }) => {
-            console.log(payload)
             return payload.data
         })
     },
