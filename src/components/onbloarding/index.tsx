@@ -54,6 +54,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ steps, onFinish }) => {
     }, [currentStep, steps, targetStep]);
 
     // Add a scroll event listener to the document element
+    // Event listener should be here because targetStep.current?.getBoundingClientRect return values before scroll
     useEffect(() => {
         document.addEventListener('scroll', () => {
             // Calculate the desired position of the tooltip relative to the viewport
