@@ -14,10 +14,8 @@ export const useGlobalHook = () => {
     const initUser = useCallback(async () => {
         if(localStorage.getItem('token') && !user.id){
             await dispatch(userActions.getMe())
-            navigate('/')
         } else if(!localStorage.getItem('token') && !pathname.includes('auth')) {
             navigate('/auth/sign-in')
-            console.log('h2e')
 
         }
     }, [dispatch, navigate, pathname, user.id])

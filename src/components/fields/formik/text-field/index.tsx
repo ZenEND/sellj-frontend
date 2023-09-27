@@ -9,11 +9,11 @@ export const TextField = ({ name, ...props }: TextField) => {
     return <Field component={UiInput} {...field} {...props} />
 }
 
-const UiInput = (props: FieldProps) => {
+const UiInput = ({className, placeholder, ...props}: FieldProps & TextField) => {
     const { field : { name, ...field}, form: { setFieldValue }} = props
     const handleChange = (event: SyntheticEvent<HTMLInputElement>) => {
         setFieldValue(name, event.currentTarget.value)
     }
 
-    return <Input name={name} {...field} onChange={handleChange} />
+    return <Input name={name} className={className} placeholder={placeholder} {...field} onChange={handleChange}/>
 }
