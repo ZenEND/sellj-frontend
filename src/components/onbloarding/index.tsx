@@ -1,5 +1,4 @@
-// Onboarding.tsx
-import React, {useEffect, useState, useMemo} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import ReactDOM from 'react-dom';
 import styles from './styles.module.scss';
 
@@ -17,7 +16,15 @@ const Onboarding: React.FC<OnboardingProps> = ({ steps, onFinish }) => {
     const [currentStep, setCurrentStep] = useState(0);
     const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
     const targetStep = useMemo(() => steps[currentStep].targetRef, [currentStep, steps])
-    const nextStep = () => {
+
+    useEffect(() => {
+        document.body.style.overflow = 'hidden';
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, []);
+
+    const nextStep = useCallback(() => {
         if (currentStep < steps.length - 1) {
             if(targetStep.current) {
                 targetStep.current.style.zIndex = '0'
@@ -26,14 +33,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ steps, onFinish }) => {
         } else {
             onFinish();
         }
-    };
-
-    useEffect(() => {
-        document.body.style.overflow = 'hidden';
-        return () => {
-            document.body.style.overflow = 'auto';
-        };
-    }, []);
+    }, [currentStep, onFinish, steps.length, targetStep]);
 
     useEffect(() => {
         if (currentStep < steps.length) {
@@ -72,16 +72,6 @@ const Onboarding: React.FC<OnboardingProps> = ({ steps, onFinish }) => {
             document.removeEventListener('scroll', () => {});
         };
     }, [targetStep]);
-
-
-
-
-
-
-
-    if (currentStep >= steps.length || position === null) {
-        return null;
-    }
 
     return ReactDOM.createPortal(
         <div className={styles.container}>
